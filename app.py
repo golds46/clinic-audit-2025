@@ -153,6 +153,13 @@ def parse_clinic_doc(doc, clinic_date, selected_clinic_type):
 # Streamlit UI
 st.title("MPH Radiotherapy Clinic Audit Uploader")
 
+if st.button("🗑️ Clear all audit data (reset file)"):
+    if os.path.exists(MASTER_FILE):
+        os.remove(MASTER_FILE)
+        st.success("Audit file deleted successfully. You can start fresh.")
+    else:
+        st.info("No audit file found to delete.")
+
 clinic_date = st.date_input("Select clinic date", value=date.today())
 clinic_type = st.selectbox("Select clinic type", options=["Auto-detect", "New", "Follow-Up", "Post-RT Review", "Discharge", "Other"])
 uploaded_file = st.file_uploader("Upload your .docx clinic file", type=["docx"])
